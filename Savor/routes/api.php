@@ -17,5 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//Currencies
 Route::get('/currencies', 'CurrencyController@index');
 // Route::get('/currency/{id}', 'CurrencyController@show');
+//Categories
+Route::get('/categories', 'CategoryController@index');
+Route::get('/category/{id}', 'CategoryController@show');
+Route::post('/category', 'CategoryController@store');
+Route::post('/category/{id}', 'CategoryController@update');
+Route::delete('/category/{id}', 'CategoryController@destroy');
