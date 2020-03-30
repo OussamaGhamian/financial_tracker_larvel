@@ -10,7 +10,10 @@ class CurrencyController extends Controller
     function index()
     {
         $currencies = Currency::all();
-        return $currencies;
+        return response()->json([
+            "success" => true,
+            "data" => $currencies
+        ], 200);
     }
     // function show($id)
     // {
