@@ -28,17 +28,16 @@ Route::delete('/user/{id}', 'UserController@destroy');
 //Auth
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
-Route::post('/logout', 'AuthController@logout');
 //need to be authenticated
-Route::group(['middleware' => ['jwt.verify']], function() {
-//Currencies
-Route::get('/currencies', 'CurrencyController@index');
-// Route::get('/currency/{id}', 'CurrencyController@show');
-//Categories
-Route::get('/categories', 'CategoryController@index');
-Route::get('/category/{id}', 'CategoryController@show');
-Route::post('/category', 'CategoryController@store');
-Route::post('/category/{id}', 'CategoryController@update');
-Route::delete('/category/{id}', 'CategoryController@destroy');
-}); 
-    
+Route::group(['middleware' => ['jwt.verify']], function () {
+    Route::post('/logout', 'AuthController@logout');
+    //Currencies
+    Route::get('/currencies', 'CurrencyController@index');
+    // Route::get('/currency/{id}', 'CurrencyController@show');
+    //Categories
+    Route::get('/categories', 'CategoryController@index');
+    Route::get('/category/{id}', 'CategoryController@show');
+    Route::post('/category', 'CategoryController@store');
+    Route::post('/category/{id}', 'CategoryController@update');
+    Route::delete('/category/{id}', 'CategoryController@destroy');
+});
