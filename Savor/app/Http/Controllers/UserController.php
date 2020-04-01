@@ -32,15 +32,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $inputs = $request->only(['email', 'name', 'password', 'image', 'currencies_id']);
-        $user = new User();
-        $user->fill($inputs);
-        // dd($request->only(['email', 'name', 'password', 'image', 'currencies_id']));
-        $user->save();
-        return $user;
-    }
+    // public function store(Request $request)
+    // {
+    //     $inputs = $request->only(['email', 'name', 'password', 'image', 'currencies_id']);
+    //     $user = new User();
+    //     $user->fill($inputs);
+    //     $user->save();
+    //     return $user;
+    // }
 
     /**
      * Display the specified resource.
