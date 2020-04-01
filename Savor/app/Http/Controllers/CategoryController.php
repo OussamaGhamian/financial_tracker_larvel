@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
-
 class CategoryController extends Controller
 {
     public function index()
@@ -39,10 +38,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         if (isset($category) && $category->user_id == auth()->user()->id) {
-            return response([
-                "success" => true,
-                "data" => $category
-            ], 200);
+            return sendResponse(true , "cotegory was found" , 200 , $category , );
         } else {
             return response([
                 "success" => false,
