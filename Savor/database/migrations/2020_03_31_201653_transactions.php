@@ -15,26 +15,18 @@ class Transactions extends Migration
     {
         //
         Schema::create('transactions', function (Blueprint $table) {
-    $table->id();
-    $table->string('title');
-    $table->string('description');
-$table->double('amount');
-$table->integer('categories_id');
-
-
-$table->date('start_date');
-
-$table->date('end_date');
-$table->integer('user_id');
-$table->string('intervalo');
-$table->string('type');
-$table->integer('currencies_id');
- 
-
-
- 
-});
-
+            $table->id();
+            $table->string('title');
+            $table->string('description');
+            $table->double('amount');
+            $table->integer('categories_id');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->integer('user_id');
+            $table->string('intervalo');
+            $table->string('type');
+            $table->integer('currencies_id');
+        });
     }
 
     /**
@@ -46,6 +38,5 @@ $table->integer('currencies_id');
     {
         //
         Schema::dropIfExists('transactions');
-
     }
 }

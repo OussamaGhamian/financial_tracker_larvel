@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -29,35 +28,20 @@ Route::delete('/user/{id}', 'UserController@destroy');
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 //need to be authenticated
-<<<<<<< HEAD
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::post('/logout', 'AuthController@logout');
     //Currencies
     Route::get('/currencies', 'CurrencyController@index');
     // Route::get('/currency/{id}', 'CurrencyController@show');
     //Categories
     Route::get('/categories', 'CategoryController@index');
-    Route::get('/category/{id}', 'CategoryController@show');
-    Route::post('/category', 'CategoryController@store');
-    Route::post('/category/{id}', 'CategoryController@update');
-    Route::delete('/category/{id}', 'CategoryController@destroy');
+    Route::get('/categories/{id}', 'CategoryController@show');
+    Route::post('/categories', 'CategoryController@store');
+    Route::post('/categories/{id}', 'CategoryController@update');
+    Route::delete('/categories/{id}', 'CategoryController@destroy');
+    // Transaction
+    Route::get('/transaction', 'TransactionsController@index');
+    Route::get('/transaction/{id}', 'TransactionsController@show');
+    Route::post('/transaction', 'TransactionsController@store');
+    Route::post('/transaction/{id}', 'TransactionsController@update');
+    Route::delete('/transaction/{id}', 'TransactionsController@destroy');
 });
-=======
-Route::group(['middleware' => ['jwt.verify']], function() {
-//Currencies
-Route::get('/currencies', 'CurrencyController@index');
-// Route::get('/currency/{id}', 'CurrencyController@show');
-//Categories
-Route::get('/categories', 'CategoryController@index');
-Route::get('/categories/{id}', 'CategoryController@show');
-Route::post('/categories', 'CategoryController@store');
-Route::post('/categories/{id}', 'CategoryController@update');
-Route::delete('/categories/{id}', 'CategoryController@destroy');
-                       
-// Transaction
-Route::get('/transaction', 'TransactionsController@index');
-Route::get('/transaction/{id}', 'TransactionsController@show');
-Route::post('/transaction', 'TransactionsController@store');
-Route::post('/transaction/{id}', 'TransactionsController@update');
-Route::delete('/transaction/{id}', 'TransactionsController@destroy');
->>>>>>> 8782c50b66f7d80215466cc96ec2c98aea065708

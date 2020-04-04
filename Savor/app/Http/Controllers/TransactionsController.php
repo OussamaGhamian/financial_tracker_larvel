@@ -9,16 +9,16 @@ class TransactionsController extends Controller
 {
     //
     function index()
-{
-    $trans = Transaction::all();
-    return response()->json([
-        "success" => true,
-        "data" => $trans,
-    ], 200);
-}
- public function store(Request $request)
     {
-        $inputs = $request->only(['title','description', 'amount', 'categories_id', 'start_date', 'end_date', 'user_id', 'intervalo', 'type', 'currencies_id']);
+        $trans = Transaction::all();
+        return response()->json([
+            "success" => true,
+            "data" => $trans,
+        ], 200);
+    }
+    public function store(Request $request)
+    {
+        $inputs = $request->only(['title', 'description', 'amount', 'categories_id', 'start_date', 'end_date', 'user_id', 'intervalo', 'type', 'currencies_id']);
 
         $trans = new Transaction();
         $trans->fill($inputs);
@@ -55,5 +55,4 @@ class TransactionsController extends Controller
     {
         $trans = Transaction::find($id)->delete();
     }
-
 }
