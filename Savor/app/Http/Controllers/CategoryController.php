@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use Exception;
 
 class CategoryController extends Controller
 {
@@ -17,13 +18,13 @@ class CategoryController extends Controller
         }
         return sendResponse(false, 401, null, ["No Categories for user with ID : ${user_id}"]);
     }
-    public function store(Request $request)
+    public function store()
     {
-        $inputs = $request->only(['name']);
-        $inputs['user_id'] = auth()->user()->id;
-        $category = new Category();
-        $category->fill($inputs);
-        $category->save();
+        $data = request()->validate([
+            "name" => 'required',
+        ]);
+        $data['user_id'] = auth()->user()->id;
+        $category = Category::create($data);
         if ($category) {
             return sendResponse(true, 200, "Category was created");
         }
@@ -37,15 +38,18 @@ class CategoryController extends Controller
         }
         return sendResponse(false, 401, null, ["New category was not created"]);
     }
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        $inputs = $request->all();
+        $data = request()->validate([
+            "name" => 'required',
+        ]);
         $category = Category::where('id', $id)->first();
-        $category->update($inputs);
-        $category->save();
-        var_dump($category);
-        die();
-        
+        if ($category) {
+            $category->update($data);
+            $category->save();
+            return sendResponse(true, 200, "Category was updated");
+        }
+        return sendResponse(false, 401, null, ["Could not update the category"]);
     }
     public function destroy($id)
     {
