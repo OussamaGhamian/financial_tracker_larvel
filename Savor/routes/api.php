@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -23,7 +24,6 @@ Route::get('/user/{id}', 'UserController@show');
 // Route::post('/user', 'UserController@store');
 Route::post('/user/{id}', 'UserController@update');
 Route::delete('/user/{id}', 'UserController@destroy');
-//transactions
 //Auth
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
@@ -34,12 +34,12 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     // Route::get('/currency/{id}', 'CurrencyController@show');
     //Categories
     Route::get('/categories', 'CategoryController@index');
-    Route::get('/categories/{id}', 'CategoryController@show');
-    Route::post('/categories', 'CategoryController@store');
-    Route::post('/categories/{id}', 'CategoryController@update');
-    Route::delete('/categories/{id}', 'CategoryController@destroy');
+    Route::post('/category', 'CategoryController@store');
+    Route::get('/category/{id}', 'CategoryController@show');
+    Route::post('/category/{id}', 'CategoryController@update');
+    Route::delete('/category/{id}', 'CategoryController@destroy');
     // Transaction
-    Route::get('/transaction', 'TransactionsController@index');
+    Route::get('/transactions', 'TransactionsController@index');
     Route::get('/transaction/{id}', 'TransactionsController@show');
     Route::post('/transaction', 'TransactionsController@store');
     Route::post('/transaction/{id}', 'TransactionsController@update');
