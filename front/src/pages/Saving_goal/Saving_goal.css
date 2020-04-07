@@ -1,0 +1,63 @@
+.icon-trash1 {
+  width: 70px;
+  height: 70px;
+  fill: teal;
+  border-radius: 19px;
+  -webkit-box-shadow: 5px 5px 10pxw #f7f7f7, -5px -5px 10px #f7f7f7;
+  box-shadow: 5px 5px 10px #f7f7f7, -5px -5px 10px #f7f7f7;
+}
+
+.icon-trash1:hover {
+  -webkit-box-shadow: inset 5px 5px 10px #f7f7f7, inset -5px -5px 10px #f7f7f7;
+  box-shadow: inset 5px 5px 10px #f7f7f7, inset -5px -5px 10px #f7f7f7;
+}
+
+.trash-lid1 {
+  transform-origin: right bottom;
+  transition: transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.icon-trash1:hover .trash-lid1 {
+  transform: translateY(-2px) rotate(30deg);
+}
+
+.icons {
+  fill: red;
+  width: 70px;
+  padding: 10px;
+  -webkit-box-shadow: 5px 5px 10pxw #f7f7f7, -5px -5px 10px #f7f7f7;
+  box-shadow: 5px 5px 10px #f7f7f7, -5px -5px 10px #f7f7f7;
+  border-radius: 19px;
+}
+
+.icons:hover {
+  fill: red;
+  -webkit-box-shadow: inset 5px 5px 10px #f7f7f7, inset -5px -5px 10px #f7f7f7;
+  box-shadow: inset 5px 5px 10px #f7f7f7, inset -5px -5px 10px #f7f7f7;
+}
+
+.icons:hover .trash-lid1 {
+  fill: red;
+  transform: translateY(-2px) rotate(30deg);
+}
+
+.cls-1, .cls-2 {
+  fill: none;
+  stroke: red;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-width: 2px;
+}
+
+.container>.row .col-md-6, .container>.row .col-md-12, .container>.row .col-md-10 , .container>.row .col-md-8, .container>.row .col-md-4, .container>.row .col-md-2   {
+  /* display: none; */
+  border-radius: 19px;
+  background: #d3dedf;
+  box-shadow: 20px 20px 60px #b3bdbe, -20px -20px 60px #f3ffff;
+  margin: 20px auto!important;
+  /* max-width: 100%; */
+}
+.form-control{
+  background: #d3dedf;
+  box-shadow: inset 20px 20px 60px #b3bdbe, inset -20px -20px 60px #f3ffff;
+}

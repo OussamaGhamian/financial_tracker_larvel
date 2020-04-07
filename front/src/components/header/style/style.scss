@@ -1,0 +1,76 @@
+.navbar-collapse,
+.collapse,
+.show {
+  margin-left: 70%;
+  a {
+    border-radius: 2px;
+    padding: 10px;
+    margin: 5px;
+    background: #343a40;
+    box-shadow: 5px 5px 10px #2c3136, -5px -5px 10px #3c434a;
+    &:hover {
+      box-shadow: inset 5px 5px 10px #2c3136, inset -5px -5px 10px #3c434a;
+    }
+  }
+}
+.navbar-brand a {
+  font-size: larger;
+  font-weight: 800;
+  padding: 10px;
+  background: #343a40;
+  box-shadow: 5px 5px 10px #2c3136, -5px -5px 10px #3c434a;
+}
+.nav-link {
+  color: whitesmoke;
+  &:hover {
+    color: white;
+  }
+}
+@media screen and (max-width: 991px) {
+  navbar-collapse,
+  .collapse,
+  .show {
+    margin-left: 0px;
+    text-align: center;
+  }
+  // margin-bottom: 1000px;
+}
+.mr-auto,
+.mx-auto {
+  margin-left: auto;
+}
+
+.topBotomBordersOut a {
+  position: relative;
+  outline: none;
+}
+
+.topBotomBordersOut a:before,
+.topBotomBordersOut a:after {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  content: "";
+  opacity: 0;
+  transition: all 0.3s;
+}
+.topBotomBordersOut a:before {
+  top: 0px;
+  transform: translateY(10px);
+}
+
+.topBotomBordersOut a:after {
+  bottom: 0px;
+  transform: translateY(-10px);
+}
+
+.topBotomBordersOut a:hover:before,
+.topBotomBordersOut a:hover:after {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.bg-dark {
+  margin-bottom: 50px;
+}

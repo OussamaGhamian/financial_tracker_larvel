@@ -1,0 +1,49 @@
+.feature {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-self: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+  margin: 40px;
+  border-radius: 19px;
+  background: #d3dedf;
+  -webkit-box-shadow: 20px 20px 60px #b3bdbe, -20px -20px 60px #f3ffff;
+          box-shadow: 20px 20px 60px #b3bdbe, -20px -20px 60px #f3ffff;
+  padding: 20px 10px;
+  height: 400px;
+  width: 350px;
+}
+
+.feature img {
+  width: 100px;
+  height: 100px;
+  padding: 8px;
+  margin-bottom: 80px;
+  border-radius: 2px;
+  background: #d3dedf;
+  -webkit-box-shadow: inset 5px 5px 10px #b3bdbe, inset -5px -5px 10px #f3ffff;
+          box-shadow: inset 5px 5px 10px #b3bdbe, inset -5px -5px 10px #f3ffff;
+}
+
+.feature img:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+.feature:hover {
+  -webkit-transform: rotate(-15deg);
+          transform: rotate(-15deg);
+  -webkit-transition: all .8s;
+  transition: all .8s;
+}
+/*# sourceMappingURL=style.css.map */

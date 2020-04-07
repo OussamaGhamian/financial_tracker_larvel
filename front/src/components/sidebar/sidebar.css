@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:900&display=swap');
+* {
+  box-sizing: border-box;
+  line-height: 1;
+}
+
+*::before, *::after {
+  box-sizing: border-box;
+}
+
+.bod {
+  /* height: auto; */
+   width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1;
+  color: black;
+  text-align: left;
+}
+
+/* =============================================================================
+                                  root
+============================================================================= */
+
+/* =============================================================================
+                                  #sidebar
+============================================================================= */
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  height: 100%;
+  width: 300px;
+  padding: 5px 30px;
+  text-align: center;
+  background: teal;
+  background-size: 175%;
+  border-right: 1px solid white;
+  transition: all .3s ease-in;
+}
+
+#sidebar .brand {
+  height: 0px;
+  font-size: 70px;
+  color: white;
+  font-weight: 900;
+  line-height: .75;
+}
+
+#sidebar ul {
+  padding: 0;
+  margin-top: 30px;
+}
+
+#sidebar li {
+  margin-bottom: 25px;
+  list-style-type: none;
+  border-top: 0.5px solid white;
+}
+
+#sidebar ul li a {
+  display: block;
+  padding-top: 25px;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+  text-decoration: none;
+  letter-spacing: 5px;
+  color: black;
+  font-weight: bold;
+  transform: scale(1.25);
+  text-shadow: -1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================
+  .sidebar-toggle-button
+========================== */
+
+.sidebar-toggle-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+}
+
+/* This needs to remain position: relative for the X. */
+
+#sidebar-toggle-button {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+  box-shadow: inset 0px 0px 0px 1px teal;
+  transition: all 0.15s linear;
+}
+
+#sidebar-toggle-button:hover {
+  transform: scale(1.05);
+  box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 1), -2px 2px 4px rgba(0, 0, 0, 0.75);
+}
+
+/* The X */
+
+#sidebar-toggle-button:before, #sidebar-toggle-button:after {
+  position: absolute;
+  content: "";
+  color: teal;
+  background-color: teal;
+  transition: all .5s ease;
+}
+
+/* The X */
+
+#sidebar-toggle-button:before {
+  top: 10px;
+  left: 24px;
+  height: 30px;
+  width: 2px;
+  border-radius: 15px;
+  background-color: teal;
+}
+
+/* The X */
+
+#sidebar-toggle-button:after {
+  top: 24px;
+  left: 10px;
+  height: 2px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+/* =============================================================================
+                               .content-container
+============================================================================= */
+
+.content-containerr {
+  flex: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0 50px 50px 50px;
+  color: white;
+}
+
+.content-containerr {
+  position: relative;
+  padding: 50px;
+  transition: all .3s ease-in;
+}
+
+/* ==========================
+    .float-shadow
+========================== */
+
+/* ==========================
+        body.open
+========================== */
+
+/* .open is applied to the body element programmatically.
+In such cases we want it to affect the child #sidebar element
+(nav#sidebar) such that the transform: translateX(-300px) on #sidebar is changed
+to transform: translateX(0px); */
+
+body.open #sidebar {
+  transform: translateX(0px);
+}
+
+body.open .content-containerr {
+  /* Remove this line, and the sidebar will slide over .content-container, without pushing it. */
+  transform: translateX(300px);
+}
+
+body.open .content-containerr:after {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+body.open #sidebar-toggle-button:before, body.open #sidebar-toggle-button:after {
+  transform: rotate(45deg);
+}
+
+.sss {
+  text-decoration: none;
+}
+
+.imgpro {
+  width: 140px;
+  border-radius: 50%;
+}
+.namee{
+  padding-top: 5px;
+  color:white;
+  font-weight: bold;
+  font-size: 25px;
+}

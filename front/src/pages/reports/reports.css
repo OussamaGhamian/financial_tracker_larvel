@@ -1,0 +1,12 @@
+.txt{
+    color: black;
+}
+.taap{
+    padding-bottom:20px;
+           box-shadow: 5px 5px 10px #f7f7f7 , -5px -5px 10px  #f7f7f7;
+           border-radius: 19px;
+           margin-left: 15px;
+}
+.form-control{
+    background-color: #c6d2d2 !important;
+ }

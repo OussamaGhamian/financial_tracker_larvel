@@ -1,0 +1,69 @@
+.slide {
+  padding: 20px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center !important;
+      -ms-flex-pack: center !important;
+          justify-content: center !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 90%;
+  padding: 0px;
+  height: 450px;
+  margin: 100px auto;
+  -webkit-box-shadow: 5px 5px 10px #b3bdbe, -5px -5px 10px #f3ffff;
+          box-shadow: 5px 5px 10px #b3bdbe, -5px -5px 10px #f3ffff;
+}
+
+.slide .carousel-indicators {
+  display: none;
+}
+
+.slide .carousel-control-next-icon,
+.slide .carousel-control-prev-icon {
+  padding: 20px;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 5px 5px 10px #b3bdbe, inset -5px -5px 10px #f3ffff;
+          box-shadow: inset 5px 5px 10px #b3bdbe, inset -5px -5px 10px #f3ffff;
+}
+
+.slide img {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: #d3dedf;
+  padding: 5px;
+  -webkit-box-shadow: 5px 5px 10px #b3bdbe, -5px -5px 10px #f3ffff;
+          box-shadow: 5px 5px 10px #b3bdbe, -5px -5px 10px #f3ffff;
+}
+
+.slide div {
+  background: #d3dedf;
+  padding: 25px;
+  text-align: center;
+  width: 100%;
+}
+
+.slide div p {
+  margin: 30px 0px;
+  text-align: center;
+  font-size: 1.3rem;
+  -webkit-box-shadow: inset 5px 5px 10px #b3bdbe, inset -5px -5px 10px #f3ffff;
+          box-shadow: inset 5px 5px 10px #b3bdbe, inset -5px -5px 10px #f3ffff;
+  padding: 5px;
+}
+
+@media screen and (min-width: 600px) {
+  .slide {
+    width: 45%;
+  }
+}
+/*# sourceMappingURL=style.css.map */

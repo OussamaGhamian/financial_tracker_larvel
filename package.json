@@ -1,0 +1,27 @@
+{
+  "name": "financial_tracker_larvel",
+  "version": "1.0.0",
+  "description": "Financial tracker app made with Larvel/ReactJS technologies, with the needed capabilities to organize each user's incomes, expenses, and saving goals. Also, viewing some statistical reports.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "back": "cd back && php artisan serve",
+    "front": "cd front && npm run start",
+    "start": "concurrently --kill-others-on-fail --names \"back,front\" \"npm run back\" \"npm run front\"",
+    "postinstall": "cd front && npm install && cd .. && cd back && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OussamaGhamian/financial_tracker_larvel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OussamaGhamian/financial_tracker_larvel/issues"
+  },
+  "homepage": "https://github.com/OussamaGhamian/financial_tracker_larvel#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
