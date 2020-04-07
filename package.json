@@ -23,5 +23,6 @@
   "homepage": "https://github.com/OussamaGhamian/financial_tracker_larvel#readme",
   "dependencies": {
     "concurrently": "^5.1.0"
-  }
+  },
+  "devDependencies": {}
 }

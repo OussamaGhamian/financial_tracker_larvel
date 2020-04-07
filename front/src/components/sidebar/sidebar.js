@@ -16,21 +16,22 @@ class sidebar extends React.Component {
     }
     async componentDidMount() {
         try {
-            const response = await fetch('http://localhost:8080/api/users/index.php');
+            const response = await fetch('http://localhost:8000/api/users/');
             const res = await response.json();
-            // console.log(res.data);
-            this.setState({ users: res.data });
+            console.log(res);
+            this.setState({ users: res });
             this.state.users.map(
                 user => {
-                    if (user['email'] === localStorage.getItem('email')) {
+                    if (localStorage.getItem('currUser')) {
                         this.setState({ currUser: user })
                         console.log(this.state.currUser.image)
                     }
                 })
-        } catch (err) { }
+        } catch (err) {
+            console.log(err)
+        }
     }
     render() {
-        const initialLoggedIn = localStorage.getItem('email')
         if (this.state.redirectToReferrer) {
             return (<Redirect to={'/'} />)
         }
@@ -41,8 +42,11 @@ class sidebar extends React.Component {
                         <p className='namee'>{this.state.currUser['name']}</p>
                         <img className='sss' src={`http://localhost:8080/uploads/${this.state.currUser.image}`} alt="Akram" className='imgpro' />
                         <br></br> <br></br>
-                        <MDBBtn onClick={() => {
-                            localStorage.removeItem('email')
+                        <MDBBtn onClick={async() => {
+                            const response = await fetch('http://localhost:8000/api/logout');
+                            const resultp = await response.json();
+                             localStorage.removeItem('currUser')
+
                             this.setState({ redirectToReferrer: true }, () => {
                                 window.location.reload();
                             });

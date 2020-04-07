@@ -27,12 +27,14 @@ Route::delete('/user/{id}', 'UserController@destroy');
 //Auth
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
+
 //Currencies
 Route::post('/storeimg', 'AuthController@storeimg');
 Route::get('/currencies', 'CurrencyController@index');
 // Route::get('/currency/{id}', 'CurrencyController@show');
 //need to be authenticated
 Route::group(['middleware' => ['jwt.verify']], function () {
+Route::get('/logout', 'AuthController@logout');
 
     //Categories
     Route::get('/categories', 'CategoryController@index');
