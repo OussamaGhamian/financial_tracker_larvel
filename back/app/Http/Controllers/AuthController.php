@@ -26,7 +26,7 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return [$this->respondWithToken($token),auth()->user()];
+        return [$this->respondWithToken($token), auth()->user()];
     }
 
     public function logout(Request $request)
@@ -51,7 +51,7 @@ class AuthController extends Controller
     }
     protected function respondWithToken($token)
     {
-        return  ([
+        return ([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
@@ -89,6 +89,28 @@ class AuthController extends Controller
         // $fileNewName = (explode(".", $fileName))[0] . uniqid('', true) . '.' . $fileExt;
         // $fileDest = 'public/' . $fileName;
         // move_uploaded_file($fileTmpName, $fileDest);
+
+    }
+    public function displayImage($name)
+    {
+
+        $path = storage_public('images/' . $name);
+
+        if (!File::exists($path)) {
+
+            abort(404);
+
+        }
+
+        $file = File::get($path);
+
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+
+        $response->header("Content-Type", $type);
+
+        return $response;
 
     }
 }

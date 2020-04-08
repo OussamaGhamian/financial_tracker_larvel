@@ -32,7 +32,13 @@ Route::post('/login', 'AuthController@login');
 Route::post('/storeimg', 'AuthController@storeimg');
 Route::get('/currencies', 'CurrencyController@index');
 // Route::get('/currency/{id}', 'CurrencyController@show');
+
+
+
+Route::post('/images/{name}', 'AuthController@displayImage');
+
 //need to be authenticated
+
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('/logout', 'AuthController@logout');
 

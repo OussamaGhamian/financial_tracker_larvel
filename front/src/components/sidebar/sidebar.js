@@ -35,7 +35,7 @@ class sidebar extends React.Component {
                 <div className='bod'>
                     <nav id="sidebar">
                         <p className='namee'>{this.state.user[2]}</p>
-                        <img className='sss' src={`http://localhost:8000/public/images/${this.state.user[3]}`} alt="Akram" className='imgpro' />
+                        <img className='sss' src={`http://localhost:8000/images/${this.state.user[3]}`} alt="Akram" className='imgpro' />
                         <br></br> <br></br>
                         <MDBBtn onClick={async () => {
                             const response = await fetch(`http://localhost:8000/api/logout?token=${localStorage.getItem('currUser')}`);
