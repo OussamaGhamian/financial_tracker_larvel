@@ -11,7 +11,8 @@ class sidebar extends React.Component {
         this.state = {
             redirectToReferrer: false,
             users: [],
-            currUser: []
+            currUser: [],
+            token: ''
         }
     }
     async componentDidMount() {
@@ -19,10 +20,19 @@ class sidebar extends React.Component {
             const response = await fetch('http://localhost:8000/api/users/');
             const res = await response.json();
             console.log(res);
-            this.setState({ users: res });
+            this.setState({
+                users: res
+
+            });
+
+            this.setState({
+                token: localStorage.getItem('currUser')
+
+            });
             this.state.users.map(
                 user => {
-                    if (localStorage.getItem('currUser')) {
+
+                    if (this.state.token) {
                         this.setState({ currUser: user })
                         console.log(this.state.currUser.image)
                     }
@@ -42,10 +52,10 @@ class sidebar extends React.Component {
                         <p className='namee'>{this.state.currUser['name']}</p>
                         <img className='sss' src={`http://localhost:8080/uploads/${this.state.currUser.image}`} alt="Akram" className='imgpro' />
                         <br></br> <br></br>
-                        <MDBBtn onClick={async() => {
-                            const response = await fetch('http://localhost:8000/api/logout');
+                        <MDBBtn onClick={async () => {
+                            const response = await fetch(`http://localhost:8000/api/logout?token=${this.state.token}`);
                             const resultp = await response.json();
-                             localStorage.removeItem('currUser')
+                            localStorage.removeItem('currUser')
 
                             this.setState({ redirectToReferrer: true }, () => {
                                 window.location.reload();
