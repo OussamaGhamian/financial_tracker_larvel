@@ -12,34 +12,13 @@ class sidebar extends React.Component {
             redirectToReferrer: false,
             users: [],
             currUser: [],
-            token: ''
+            user: []
         }
     }
     async componentDidMount() {
-        try {
-            const response = await fetch('http://localhost:8000/api/users/');
-            const res = await response.json();
-            console.log(res);
-            this.setState({
-                users: res
-
-            });
-
-            this.setState({
-                token: localStorage.getItem('currUser')
-
-            });
-            this.state.users.map(
-                user => {
-
-                    if (this.state.token) {
-                        this.setState({ currUser: user })
-                        console.log(this.state.currUser.image)
-                    }
-                })
-        } catch (err) {
-            console.log(err)
-        }
+        this.setState({ user: (localStorage.getItem('userData')).split(',') })
+        console.log(this.state.user[0])
+        console.log(localStorage.getItem('userData'));
     }
     render() {
         if (this.state.redirectToReferrer) {
@@ -49,8 +28,8 @@ class sidebar extends React.Component {
             <>
                 <div className='bod'>
                     <nav id="sidebar">
-                        <p className='namee'>{this.state.currUser['name']}</p>
-                        <img className='sss' src={`http://localhost:8080/uploads/${this.state.currUser.image}`} alt="Akram" className='imgpro' />
+                        <p className='namee'>{this.state.user[2]}</p>
+                        <img className='sss' src={`http://localhost:8000/public/images/${this.state.user[3]}`} alt="Akram" className='imgpro' />
                         <br></br> <br></br>
                         <MDBBtn onClick={async () => {
                             const response = await fetch(`http://localhost:8000/api/logout?token=${this.state.token}`);
