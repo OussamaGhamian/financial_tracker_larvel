@@ -11,14 +11,20 @@ class sidebar extends React.Component {
         this.state = {
             redirectToReferrer: false,
             users: [],
-            currUser: [],
-            user: []
+             user: [],
+            token:''
         }
     }
     async componentDidMount() {
-        this.setState({ user: (localStorage.getItem('userData')).split(',') })
+        this.setState({ user: (localStorage.getItem('userData')).split(','),
+           token: localStorage.getItem('currUser')
+     })
         console.log(this.state.user[0])
         console.log(localStorage.getItem('userData'));
+        
+
+        console.log(localStorage.getItem('currUser')) ;
+        
     }
     render() {
         if (this.state.redirectToReferrer) {
@@ -32,7 +38,7 @@ class sidebar extends React.Component {
                         <img className='sss' src={`http://localhost:8000/public/images/${this.state.user[3]}`} alt="Akram" className='imgpro' />
                         <br></br> <br></br>
                         <MDBBtn onClick={async () => {
-                            const response = await fetch(`http://localhost:8000/api/logout?token=${this.state.token}`);
+                            const response = await fetch(`http://localhost:8000/api/logout?token=${localStorage.getItem('currUser')}`);
                             const resultp = await response.json();
                             localStorage.removeItem('currUser')
 

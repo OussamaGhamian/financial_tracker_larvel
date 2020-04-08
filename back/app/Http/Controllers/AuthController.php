@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
 use JWTAuth;
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -25,13 +26,13 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return [$this->respondWithToken($token), auth()->user()];
+        return [$this->respondWithToken($token),auth()->user()];
     }
 
     public function logout(Request $request)
     {
         $this->validate($request, [
-            'token' => 'required'
+            'token' => 'required',
         ]);
 
         try {
@@ -39,21 +40,21 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'User logged out successfully'
+                'message' => 'User logged out successfully',
             ]);
         } catch (JWTException $exception) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, the user cannot be logged out'
+                'message' => 'Sorry, the user cannot be logged out',
             ], 500);
         }
     }
     protected function respondWithToken($token)
     {
-        return response()->json([
+        return  ([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ]);
     }
     public function storeimg(Request $req)
@@ -84,7 +85,6 @@ class AuthController extends Controller
         // $fileErr = $file["error"];
         // $fileExt = strtolower(end(explode(".", $fileName)));
         // $allowed = ["jpeg", "jpg", "png", "pdf"];
-
 
         // $fileNewName = (explode(".", $fileName))[0] . uniqid('', true) . '.' . $fileExt;
         // $fileDest = 'public/' . $fileName;

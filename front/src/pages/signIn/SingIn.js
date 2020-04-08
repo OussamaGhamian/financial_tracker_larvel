@@ -13,7 +13,7 @@ class SignIn extends React.Component {
             password: '',
             currUser: '',
             redirectToReferrer: false,
-            token: '',
+            tokena: '',
             userData: []
 
         };
@@ -29,13 +29,14 @@ class SignIn extends React.Component {
             password: this.state.password
         })
             .then((response) => {
-                const token = response.data[0].access_token;
+                const tokena = response.data[0].access_token;
                 const userData = Object.values(response.data[1]);
                 // console.log(userData)
                 // console.log(token);
-                localStorage.setItem('currUser', token)
+               localStorage.setItem('currUser', tokena)
                 localStorage.setItem('userData', userData)
                 console.log(localStorage.getItem('userData'));
+              console.log(tokena);
                 this.setState({ redirectToReferrer: true }, () => {
                     this.props.setLogin(true)
                 });
