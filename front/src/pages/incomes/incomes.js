@@ -60,6 +60,7 @@ export default class incomes extends React.Component {
             this.setState({
                 itemstrans: resultt.data
             });
+            console.log(this.state.itemstrans)
             ///categories by id
 
 
@@ -271,7 +272,7 @@ export default class incomes extends React.Component {
                                                         })}
                                                     </p>
 
-                                                    <p><span>Amount:</span>  {itemI.amount}  </p>
+                                                    <p><span>Amount:</span>  {itemI.amount}  {itemI.categories_id == 1 ? "L.L" : "USD"}  </p>
                                                     <p><span>End Date:</span>  {itemI.end_date} </p>
 
                                                 </Col>
