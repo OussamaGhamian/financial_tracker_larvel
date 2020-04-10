@@ -13,10 +13,14 @@ class CategoryController extends Controller
         $user = auth()->user();
         $categories = $user->categories;
         if ($categories) {
-            return sendResponse(true, 200, $categories,);
-        }
+            return sendResponse(true, 200,$categories);
+       }
         return sendResponse(false, 401, null, ["No Categories for user with ID : " . $user->id]);
     }
+
+
+
+
     public function store()
     {
         $data = request()->validate([

@@ -44,14 +44,16 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 
     //Categories
     Route::get('/categories', 'CategoryController@index');
-    Route::post('/category', 'CategoryController@store');
-    Route::get('/category/{id}', 'CategoryController@show');
-    Route::post('/category/{id}', 'CategoryController@update');
-    Route::delete('/category/{id}', 'CategoryController@destroy');
+    Route::post('/categories', 'CategoryController@store');
+    Route::get('/categories/{id}', 'CategoryController@show');
+    Route::post('/categories/{id}', 'CategoryController@update');
+    Route::delete('/categories/{id}', 'CategoryController@destroy');
     // Transaction
     Route::get('/transactions', 'TransactionsController@index');
-    Route::get('/transaction/{id}', 'TransactionsController@show');
-    Route::post('/transaction', 'TransactionsController@store');
-    Route::post('/transaction/{id}', 'TransactionsController@update');
-    Route::delete('/transaction/{id}', 'TransactionsController@destroy');
+    Route::get('/transIncomes', 'TransactionsController@showTypeIncomes');
+
+    Route::get('/transactions/{id}', 'TransactionsController@show');
+    Route::post('/transactions', 'TransactionsController@store');
+    Route::post('/transactions/{id}', 'TransactionsController@update');
+    Route::delete('/transactions/{id}', 'TransactionsController@destroy');
 });
