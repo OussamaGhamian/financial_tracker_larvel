@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Category;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -17,9 +18,13 @@ class AuthController extends Controller
             'image' => $request->image,
             'currencies_id' => $request->currencies_id,
         ]);
+        $category = Category::create([ "name"=> 'Finance', "user_id" => $user->id ]);
+
+
         $token = auth()->login($user);
         return $this->respondWithToken($token);
     }
+
     public function login()
     {
         $credentials = request(['email', 'password']);
