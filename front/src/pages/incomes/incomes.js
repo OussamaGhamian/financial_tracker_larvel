@@ -56,7 +56,7 @@ export default class incomes extends React.Component {
                 }
             });
             const resultt = await responset.json();
-            console.log(resultt.data)
+            console.log(resultt.data[0].id)
             this.setState({
                 itemstrans: resultt.data
             });
@@ -130,6 +130,22 @@ export default class incomes extends React.Component {
         this.setState({
             visible: false
         });
+    }
+    delete = async (e) => {
+        e.preventDefault();
+        console.log(e.target.id);
+        try {
+            const response = await axios.delete(`http://localhost:8000/api/transactions/${e.target.id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('currUser')} `,
+                }
+            })
+            console.log([...this.state.itemstrans])
+            // this.setState({ itemstrans:[...this.state.itemstrans] })
+        }
+        catch (err) {
+
+        }
     }
 
     render() {
@@ -233,42 +249,47 @@ export default class incomes extends React.Component {
 
                     <MDBContainer>
 
-                        {this.state.itemstrans.map((itemI) => (
+                        {this.state.itemstrans.map((itemI, index) => (
 
-                            <MDBRow>
-                                <MDBCol md="10">
-                                    <Container className="container article float-shadow">
-                                        <Row >
-                                            <Col sm={5}>
+                            < form onSubmit={(e) => this.delete(e)} id={itemI.id} >
+                                <MDBRow>
+                                    <MDBCol md="10">
+                                        <Container className="container article float-shadow">
+                                            <Row >
+                                                <Col sm={5}>
 
-                                                <p><span>Title:</span> {itemI.title}</p>
-                                                <p><span>Description:</span>  {itemI.description}</p>
-                                                <p><span>Start Date:</span>  {itemI.start_date} </p>
-                                            </Col>
-                                            <Col className="col" sm={5}>
-                                                {/* <p><span>Categories:</span>  {this.state.itemsCatob.map(item =>{
-                                                    if (item.id == itemI.categories_id)
-                                                    return item.name
+                                                    <p><span>Title:</span> {itemI.title}</p>
+                                                    <p><span>Description:</span>  {itemI.description}</p>
+                                                    <p><span>Start Date:</span>  {itemI.start_date} </p>
+                                                </Col>
+                                                <Col className="col" sm={5}>
+                                                    <p>
+                                                        <span>Categories:</span>
+                                                        {this.state.itemsCato.map(item => {
+                                                            if (item.id == itemI.categories_id)
+                                                                return item.name
+                                                        })}
+                                                    </p>
 
-                                                })}</p> */}
+                                                    <p><span>Amount:</span>  {itemI.amount}  </p>
+                                                    <p><span>End Date:</span>  {itemI.end_date} </p>
 
-                                                <p><span>Amount:</span>  {itemI.amount}  </p>
-                                                <p><span>End Date:</span>  {itemI.end_date} </p>
+                                                </Col>
+                                                <Col className="col" sm={2}>
 
-                                            </Col>
-                                            <Col className="col" sm={2}>
+                                                    <button type="submit">
+                                                        <svg className="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+                                                            <path className="trash-lid" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
+                                                            <path className="trash-can" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
+                                                        </svg>
+                                                    </button>
 
-                                                <svg className="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
-                                                    <path className="trash-lid" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
-                                                    <path className="trash-can" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
-                                                </svg>
-
-                                            </Col>
-                                        </Row>
-                                    </Container>
-                                </MDBCol>
-                            </MDBRow>
-
+                                                </Col>
+                                            </Row>
+                                        </Container>
+                                    </MDBCol>
+                                </MDBRow>
+                            </form>
                         ))}
                     </MDBContainer>
 
