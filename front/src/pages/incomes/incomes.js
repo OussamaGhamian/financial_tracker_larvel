@@ -4,32 +4,24 @@ import { Form, Col, Container, Row } from 'react-bootstrap'
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import Modal from 'react-awesome-modal';
 import Side from '../../components/sidebar/sidebar'
+import axios from "axios";
 
 export default class incomes extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             visible: false,
+            curren: [],
+            itemsCato: [],
             titlee: '',
-            title: '',
             descriptionn: '',
-            currencies_idd: '',
             startDatee: '',
             endDatee: '',
-            categories_idd: '',
             amountt: '',
-            description: '',
-            currencies_id: '',
-            start_date: '',
-            end_date: '',
-            categories_id: '',
-            amount: '',
-            itemsCurr: [],
-            itemsCato: [],
-            currUser: [],
-            itemsIncomes: [],
-            name: ''
-
+            currencies_idd: '',
+            categories_idd: '',
+            itemstrans: [],
+            itemsCatob: [],
         }
         this.addincomes = this.addincomes.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -39,54 +31,91 @@ export default class incomes extends React.Component {
     }
     async componentDidMount() {
         try {
-            const response = await fetch('http://localhost:8080/api/currencies');
-
+            const token = localStorage.getItem('currUser');
+            //currencies
+            const response = await fetch('http://localhost:8000/api/currencies');
             const result = await response.json();
-            const response1 = await fetch('http://localhost:8080/api/categories');
-            const result1 = await response1.json();
-
-            let itemsCurr = []
-            let itemsCato = []
             this.setState({
-                itemsCurr: [...itemsCurr, ...result.data],
-                itemsCato: [...itemsCato, ...result1.data],
-
-                error: "none"
+                curren: result.data
             });
-            const responseu = await fetch('http://localhost:8080/api/users/index.php');
-            const res = await responseu.json();
-            // console.log(res.data);
-            this.setState({ users: res.data });
-            this.state.users.map(
-                user => {
-                    if (user['email'] === localStorage.getItem('email')) {
-                        this.setState({ currUser: user })
-                        console.log(this.state.currUser.id)
-                    }
-                })
-
-            const resIn = await fetch(`http://localhost:8080/api/transactions/getById_type.php?id=${this.state.currUser.id}&type=incomes`);
-            const rest = await resIn.json();
-            console.log(rest.data)
+            //categories
+            const responseG = await fetch('http://localhost:8000/api/categories', {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultG = await responseG.json();
+            console.log(resultG.data)
             this.setState({
-                itemsIncomes: rest.data,
-                error: "none"
+                itemsCato: resultG.data
             });
+            //transactions
+            const responset = await fetch('http://localhost:8000/api/transIncomes', {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultt = await responset.json();
+            console.log(resultt.data)
+            this.setState({
+                itemstrans: resultt.data
+            });
+            ///categories by id
+
+
+
+            const responseGb = await fetch(`http://localhost:8000/api/categories/3`, {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultGb = await responseGb.json();
+            console.log(resultGb.data.name)
+            this.setState({
+                itemsCatob: resultGb.data.name
+            });
+            console.log(this.state.itemsCatob)
+
+
+
+
         }
-
 
         catch (err) {
             return ("cdsc")
         }
     }
 
-    async addincomes(event) {
-        event.preventDefault();
-        const responseu = await fetch(`http://localhost:8080/api/transactions/create.php?title=${this.state.titlee}&description=${this.state.descriptionn}&amount=${this.state.amountt}&categories_id=${this.state.categories_idd}&start_date=${this.state.startDatee}&end_date=${this.state.endDatee}&users_id=${this.state.currUser.id}&intervalo=fexit&type=incomes&currencies_id=${this.state.currencies_idd}`);
-        const res = await responseu.json();
-        window.location.reload();
+    async addincomes(e) {
+        e.preventDefault();
+        const userDa = (localStorage.getItem('userData').split(',')[0]);
+        const token = localStorage.getItem('currUser');
 
-        console.log(res.data.amount)
+        const responset = await axios.post('http://localhost:8000/api/transactions', {
+            title: this.state.titlee,
+            description: this.state.descriptionn,
+            amount: this.state.amountt,
+            categories_id: this.state.categories_idd,
+            start_date: this.state.startDatee,
+            end_date: this.state.endDatee,
+            user_id: userDa,
+            intervalo: "fixxed",
+            type: "incomes",
+            currencies_id: this.state.currencies_idd
+        }, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token} `,
+            }
+        }
+        );
+        if (responset.status == 200) {
+            alert("incomes has been created");
+            this.setState({ redirect: true });
+        }
+        else { alert("incomes has not been created") };
+
+        window.location.reload();
 
     }
 
@@ -153,7 +182,7 @@ export default class incomes extends React.Component {
                                                 <Form.Group as={Col} >
                                                     <Form.Label>Currencies</Form.Label>
                                                     <Form.Control as="select" name="currencies_idd" onChange={this.onChange}>
-                                                        {this.state.itemsCurr.map((item, index) => (
+                                                        {this.state.curren.map((item, index) => (
                                                             <option value={item.id} key={index} >{item.code}</option>
                                                         ))}
                                                     </Form.Control>
@@ -172,10 +201,6 @@ export default class incomes extends React.Component {
                                                     <MDBInput icon="envelope" group type="date" name="endDatee" onChange={this.onChange} validate error="wrong" success="right" />
                                                 </Form.Group>
                                             </Form.Row>
-
-
-
-
                                             <Form.Group controlId="formGridPassword">
 
                                             </Form.Group>
@@ -192,9 +217,6 @@ export default class incomes extends React.Component {
                             </MDBContainer>
 
                         </div>
-
-
-
                     </Modal>
                 </section>
                 <div className="icom">
@@ -207,11 +229,11 @@ export default class incomes extends React.Component {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
+
+
                     <MDBContainer>
 
-                        {this.state.itemsIncomes.map((itemI) => (
-
-
+                        {this.state.itemstrans.map((itemI) => (
 
                             <MDBRow>
                                 <MDBCol md="10">
@@ -224,11 +246,13 @@ export default class incomes extends React.Component {
                                                 <p><span>Start Date:</span>  {itemI.start_date} </p>
                                             </Col>
                                             <Col className="col" sm={5}>
-                                                <p><span>Categories:</span>  {itemI.categories_id}</p>
+                                                {/* <p><span>Categories:</span>  {this.state.itemsCatob.map(item =>{
+                                                    if (item.id == itemI.categories_id)
+                                                    return item.name
 
-                                                <p><span>Amount:</span>  {itemI.amount}
+                                                })}</p> */}
 
-                                                </p>
+                                                <p><span>Amount:</span>  {itemI.amount}  </p>
                                                 <p><span>End Date:</span>  {itemI.end_date} </p>
 
                                             </Col>
@@ -246,7 +270,6 @@ export default class incomes extends React.Component {
                             </MDBRow>
 
                         ))}
-                        }
                     </MDBContainer>
 
                 </div>
