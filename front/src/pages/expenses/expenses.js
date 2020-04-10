@@ -1,4 +1,5 @@
-import React  from 'react';
+import React from 'react';
+import axios from "axios"
 import './expenses.css';
 import { Form, Col, Container, Row } from 'react-bootstrap'
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
@@ -9,7 +10,9 @@ class expenses extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            currencies: [],
+            categories: [],
         }
     }
 
@@ -24,19 +27,52 @@ class expenses extends React.Component {
             visible: false
         });
     }
-
+    async componentDidMount() {
+        try {
+            const response = await fetch('http://localhost:8000/api/currencies');
+            const result = await response.json();
+            if (result.success) {
+                this.setState({
+                    currencies: result.data,
+                });
+            }
+        }
+        catch (err) {
+            console.log(err.message + ' : ' + err.message)
+        }
+        try {
+            const response = await fetch('http://localhost:8000/api/categories', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('currUser')}`
+                }
+            });
+            const result = await response.json();
+            console.log(result.data)
+            if (result.success) {
+                this.setState({
+                    categories: result.data,
+                });
+            }
+        }
+        catch (err) {
+            console.log(err.message + ' : ' + err.message)
+        }
+    }
+    addExpense = (e) => {
+        e.preventDefault();
+        console.log(e.target);
+    }
     render() {
         return (
             <>
-            <Side/>
+                <Side />
                 <section >
-
                     <Modal visible={this.state.visible} width="100%" height="100%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                         <div className="mod" >
                             <MDBContainer  >
                                 <MDBRow   >
                                     <MDBCol md="12" >
-                                        <Form >
+                                        <Form onSubmit={this.addExpense}>
                                             <Form.Row>
                                                 <Form.Group as={Col} controlId="formGridEmail">
                                                     <Form.Label>Title</Form.Label>
@@ -47,9 +83,10 @@ class expenses extends React.Component {
                                                 <Form.Group as={Col} controlId="formGridEmail">
                                                     <Form.Label>Categories</Form.Label>
 
-                                                    <Form.Control as="select" value="ChooseCu">
-                                                        <option>Choose</option>
-                                                        <option>...</option>
+                                                    <Form.Control as="select" >
+                                                        {this.state.categories.map((item, index) => {
+                                                            return <option value={item.id} key={index} >{item.name}</option>
+                                                        })}
                                                     </Form.Control>
                                                 </Form.Group>
                                                 <Form.Group as={Col} controlId="formGridState">
@@ -63,8 +100,6 @@ class expenses extends React.Component {
                                                 <MDBInput icon="envelope" group type="text" validate error="wrong" success="right" />
                                             </Form.Group>
                                             <Form.Row>
-
-
                                                 <Form.Group as={Col} controlId="formGridPassword">
                                                     <Form.Label>Amount</Form.Label>
                                                     <MDBInput icon="envelope" group type="number" validate error="wrong" success="right" />
@@ -73,13 +108,12 @@ class expenses extends React.Component {
 
                                                 <Form.Group as={Col} controlId="formGridEmail">
                                                     <Form.Label>Currencies</Form.Label>
-                                                    <Form.Control as="select" value="ChooseCu">
-                                                        <option>Choose</option>
-                                                        <option>...</option>
+                                                    <Form.Control as="select">
+                                                        {this.state.currencies.map((item, index) => (
+                                                            <option value={item.id} key={index} >{item.code}</option>
+                                                        ))}
                                                     </Form.Control>
                                                 </Form.Group>
-
-
                                             </Form.Row>
                                             <Form.Row>
                                                 <Form.Group as={Col} controlId="formGridsDate">
@@ -92,12 +126,7 @@ class expenses extends React.Component {
                                                     <MDBInput icon="envelope" group type="date" validate error="wrong" success="right" />
                                                 </Form.Group>
                                             </Form.Row>
-
-
-
-
                                             <Form.Group controlId="formGridPassword">
-
                                             </Form.Group>
                                             <div className="text-center">
                                                 <MDBBtn className='topBotomBordersOut' type="submit">Add expenses</MDBBtn>
@@ -114,7 +143,7 @@ class expenses extends React.Component {
                         </div>
 
 
-
+                        {/* //add button starts */}
                     </Modal>
                 </section>
                 <div className="icom">
@@ -127,9 +156,9 @@ class expenses extends React.Component {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
+                    {/* //add button ends
 
-
-
+                    //expenses component starts */}
                     <MDBContainer>
                         <MDBRow>
                             <MDBCol md="10">
@@ -160,7 +189,7 @@ class expenses extends React.Component {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
-
+                    {/* //expenses component ends */}
                 </div>
             </>
         );
