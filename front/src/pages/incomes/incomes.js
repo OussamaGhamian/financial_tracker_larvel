@@ -60,6 +60,26 @@ export default class incomes extends React.Component {
             this.setState({
                 itemstrans: resultt.data
             });
+            console.log(this.state.itemstrans)
+            ///categories by id
+
+
+
+            const responseGb = await fetch(`http://localhost:8000/api/categories/3`, {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultGb = await responseGb.json();
+            console.log(resultGb.data.name)
+            this.setState({
+                itemsCatob: resultGb.data.name
+            });
+            console.log(this.state.itemsCatob)
+
+
+
+
         }
         catch (err) {
             return (err)
@@ -237,7 +257,8 @@ export default class incomes extends React.Component {
                                                                 return item.name
                                                         })}
                                                     </p>
-                                                    <p><span>Amount:</span>  {itemI.amount}  </p>
+
+                                                    <p><span>Amount:</span>  {itemI.amount}  {itemI.categories_id == 1 ? "L.L" : "USD"}  </p>
                                                     <p><span>End Date:</span>  {itemI.end_date} </p>
                                                 </Col>
                                                 <Col className="col" sm={2}>
