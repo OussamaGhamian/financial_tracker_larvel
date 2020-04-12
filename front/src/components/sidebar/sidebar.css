@@ -1,17 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Montserrat:900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:900&display=swap");
 * {
   box-sizing: border-box;
   line-height: 1;
 }
 
-*::before, *::after {
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 .bod {
   /* height: auto; */
-   width: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   font-size: 16px;
@@ -34,15 +35,15 @@
   position: fixed;
   top: 0;
   left: 0;
-  
+
   height: 100%;
-  width: 300px;
+  width: 270px;
   padding: 5px 30px;
   text-align: center;
-  background: teal;
+  background: #343a40;
   background-size: 175%;
-  border-right: 1px solid white;
-  transition: all .3s ease-in;
+  /* border-right: 1px solid white; */
+  transition: all 0.3s ease-in;
 }
 
 #sidebar .brand {
@@ -50,7 +51,7 @@
   font-size: 70px;
   color: white;
   font-weight: 900;
-  line-height: .75;
+  line-height: 0.75;
 }
 
 #sidebar ul {
@@ -70,7 +71,7 @@
   color: white;
   text-decoration: none;
   text-transform: uppercase;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   text-decoration: none;
 }
 
@@ -110,17 +111,19 @@
 
 #sidebar-toggle-button:hover {
   transform: scale(1.05);
-  box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 1), -2px 2px 4px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 1),
+    -2px 2px 4px rgba(0, 0, 0, 0.75);
 }
 
 /* The X */
 
-#sidebar-toggle-button:before, #sidebar-toggle-button:after {
+#sidebar-toggle-button:before,
+#sidebar-toggle-button:after {
   position: absolute;
   content: "";
   color: teal;
   background-color: teal;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 
 /* The X */
@@ -159,7 +162,7 @@
 .content-containerr {
   position: relative;
   padding: 50px;
-  transition: all .3s ease-in;
+  transition: all 0.3s ease-in;
 }
 
 /* ==========================
@@ -189,7 +192,8 @@ body.open .content-containerr:after {
   backdrop-filter: blur(10px);
 }
 
-body.open #sidebar-toggle-button:before, body.open #sidebar-toggle-button:after {
+body.open #sidebar-toggle-button:before,
+body.open #sidebar-toggle-button:after {
   transform: rotate(45deg);
 }
 
@@ -201,9 +205,9 @@ body.open #sidebar-toggle-button:before, body.open #sidebar-toggle-button:after 
   width: 140px;
   border-radius: 50%;
 }
-.namee{
+.namee {
   padding-top: 5px;
-  color:white;
+  color: white;
   font-weight: bold;
   font-size: 25px;
 }
