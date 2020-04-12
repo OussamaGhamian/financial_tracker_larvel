@@ -62,6 +62,7 @@ class Saving_goal extends React.Component {
 
                 itemsAmount: totalincomes
             });
+            localStorage.setItem('totalIncomes', totalincomes)
             console.log(this.state.itemsAmount)
 
             //transactionseXPENSES
@@ -78,6 +79,7 @@ class Saving_goal extends React.Component {
             this.setState({
                 itemsexpenses: totalexpenses
             });
+            localStorage.setItem('totalExpenses', totalexpenses)
             console.log(this.state.itemsexpenses)
             console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses) | 0 + 1))
             console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses) / 12).toFixed(1))
@@ -132,7 +134,7 @@ class Saving_goal extends React.Component {
                 start_date: this.state.startDate,
                 end_date: this.state.endDate,
                 user_id: ((localStorage.getItem('userData')).split(','))[0],
-                intervalo: (this.state.startDate == this.state.endDate) ? 'fixed' : 'recurrence',
+                intervalo: 'Saving',
                 type: "saving",
                 currencies_id: this.state.currencies_id
             },
