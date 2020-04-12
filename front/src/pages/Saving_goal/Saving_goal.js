@@ -29,6 +29,20 @@ class Saving_goal extends React.Component {
 
         }
     }
+
+    openModal() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            visible: false
+        });
+    }
+    onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+
     async componentDidMount() {
         try {
             const token = localStorage.getItem('currUser');
@@ -66,27 +80,7 @@ class Saving_goal extends React.Component {
             });
             console.log(this.state.itemsexpenses)
             console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses) | 0 + 1))
-            console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses)/12).toFixed(1))
-        }
-        catch (err) {
-            return (err)
-        }
-    }
-    openModal() {
-        this.setState({
-            visible: true
-        });
-    }
-
-    closeModal() {
-        this.setState({
-            visible: false
-        });
-    }
-    onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
-    async componentDidMount() {
-        try {
+            console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses) / 12).toFixed(1))
             //  
             //currencies
             const response = await fetch('http://localhost:8000/api/currencies');
