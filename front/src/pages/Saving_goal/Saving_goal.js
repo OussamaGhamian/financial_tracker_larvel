@@ -24,9 +24,54 @@ class Saving_goal extends React.Component {
             intervalo: '',
             type: '',
             currencies_id: '',
+            itemsAmount: '',
+            itemsexpenses: ''
+
         }
     }
+    async componentDidMount() {
+        try {
+            const token = localStorage.getItem('currUser');
+            //transactionsIncomes
+            const responset = await fetch('http://localhost:8000/api/transIncomes', {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultt = await responset.json();
 
+            var totalincomes = (resultt.data).reduce(function (tot, arr) {
+                return tot + arr.amount;
+            }, 0);
+
+            this.setState({
+
+                itemsAmount: totalincomes
+            });
+            console.log(this.state.itemsAmount)
+
+            //transactionseXPENSES
+            const responsett = await fetch('http://localhost:8000/api/transExpenses', {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultE = await responsett.json();
+            var totalexpenses = (resultE.data).reduce(function (tot, arr) {
+                return tot + arr.amount;
+            }, 0);
+
+            this.setState({
+                itemsexpenses: totalexpenses
+            });
+            console.log(this.state.itemsexpenses)
+            console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses) | 0 + 1))
+            console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses)/12).toFixed(1))
+        }
+        catch (err) {
+            return (err)
+        }
+    }
     openModal() {
         this.setState({
             visible: true
