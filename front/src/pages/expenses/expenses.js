@@ -1,5 +1,5 @@
 import React from 'react';
- 
+
 import { Form, Col, Container, Row } from 'react-bootstrap'
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import Modal from 'react-awesome-modal';
@@ -61,7 +61,7 @@ export default class expenses extends React.Component {
                 itemstrans: resultt.data
             });
             console.log(this.state.itemstrans)
-        
+
         }
         catch (err) {
             return (err)
@@ -90,11 +90,12 @@ export default class expenses extends React.Component {
             }
         }
         );
+
+
         if (responset.status == 200) {
             alert("expenses has been created");
-            console.log(responset)
             this.setState({ itemstrans: [...this.state.itemstrans, responset.data.data] })
-
+            this.closeModal();
         }
         else { alert("expenses has not been created") };
         //    window.location.reload();
@@ -113,7 +114,6 @@ export default class expenses extends React.Component {
     }
     delete = async (e, id) => {
         e.preventDefault();
-        debugger;
         try {
             const response = await axios.delete(`http://localhost:8000/api/transactions/${id}`, {
                 headers: {
@@ -217,11 +217,10 @@ export default class expenses extends React.Component {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
-
-                    <MDBContainer>
-                        {/* {JSON.stringify(this.state.itemstrans)} */}
-                        {this.state.itemstrans.map((itemI, index) => (
-                            < form onSubmit={(e) => this.delete(e, itemI.id)} id={itemI.id} key={itemI.id} >
+                    {/* {JSON.stringify(this.state.itemstrans)} */}
+                    {this.state.itemstrans.map((itemI, index) => (
+                        < form onSubmit={(e) => this.delete(e, itemI.id)} id={itemI.id} key={itemI.id} >
+                            <MDBContainer>
                                 <MDBRow>
                                     <MDBCol md="10">
                                         <Container className="container article float-shadow">
@@ -255,9 +254,10 @@ export default class expenses extends React.Component {
                                         </Container>
                                     </MDBCol>
                                 </MDBRow>
-                            </form>
-                        ))}
-                    </MDBContainer>
+                            </MDBContainer>
+                        </form>
+                    ))}
+
                 </div>
             </>
         );

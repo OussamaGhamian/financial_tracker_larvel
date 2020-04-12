@@ -24,6 +24,7 @@ class Saving_goal extends React.Component {
             intervalo: '',
             type: '',
             currencies_id: '',
+            savings: [],
             itemsAmount: '',
             itemsexpenses: ''
 
@@ -115,18 +116,17 @@ class Saving_goal extends React.Component {
             this.setState({
                 transactions: result3.data
             });
-            // console.log(this.state.transactions)
-            //categories
         } catch (err) {
 
         }
+        this.setState({
+            savings: [...this.state.transactions.filter(item => { if (item.type == 'saving') return item })]
+        })
     }
-    addSaving = (e) => {
+    addSaving = async (e) => {
         e.preventDefault();
-        console.log("adding...")
-        console.log(this.state.title, this.state.categories_id, this.state.description, this.state.amount, this.state.startDate, this.state.endDate, ((localStorage.getItem('userData')).split(','))[0], this.state.currencies_id)
         try {
-            const response = axios.post('http://localhost:8000/api/transactions', {
+            const response = await axios.post('http://localhost:8000/api/transactions', {
                 title: this.state.title,
                 description: this.state.description,
                 amount: this.state.amount,
@@ -143,6 +143,14 @@ class Saving_goal extends React.Component {
                         Authorization: `Bearer ${localStorage.getItem('currUser')} `,
                     }
                 })
+            console.log(response)
+            if (response.status == '200') {
+                alert('Saving has been created')
+                this.closeModal();
+            }
+            this.setState({
+                savings: [...this.state.savings, response.data.data]
+            })
         }
         catch (err) {
 
@@ -227,9 +235,9 @@ class Saving_goal extends React.Component {
                         </MDBRow>
                     </MDBContainer>
                     {
-                        this.state.transactions.map(item => {
-                            if (item.type == 'saving')
-                                return (
+                        this.state.savings.map(item => {
+                            return (
+                                <form>
                                     <MDBContainer>
                                         <MDBRow>
                                             <MDBCol md="10">
@@ -260,7 +268,8 @@ class Saving_goal extends React.Component {
                                             </MDBCol>
                                         </MDBRow>
                                     </MDBContainer>
-                                )
+                                </form>
+                            )
                         })
                     }
                 </div>

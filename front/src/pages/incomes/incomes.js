@@ -93,7 +93,7 @@ export default class incomes extends React.Component {
             alert("incomes has been created");
             console.log(responset)
             this.setState({ itemstrans: [...this.state.itemstrans, responset.data.data] })
-
+            this.closeModal();
         }
         else { alert("incomes has not been created") };
         //    window.location.reload();
@@ -217,10 +217,11 @@ export default class incomes extends React.Component {
                         </MDBRow>
                     </MDBContainer>
 
-                    <MDBContainer>
-                        {/* {JSON.stringify(this.state.itemstrans)} */}
-                        {this.state.itemstrans.map((itemI, index) => (
-                            < form onSubmit={(e) => this.delete(e, itemI.id)} id={itemI.id} key={itemI.id} >
+
+                    {/* {JSON.stringify(this.state.itemstrans)} */}
+                    {this.state.itemstrans.map((itemI, index) => (
+                        < form onSubmit={(e) => this.delete(e, itemI.id)} id={itemI.id} key={itemI.id} >
+                            <MDBContainer>
                                 <MDBRow>
                                     <MDBCol md="10">
                                         <Container className="container article float-shadow">
@@ -254,9 +255,10 @@ export default class incomes extends React.Component {
                                         </Container>
                                     </MDBCol>
                                 </MDBRow>
-                            </form>
-                        ))}
-                    </MDBContainer>
+                            </MDBContainer>
+                        </form>
+                    ))}
+
                 </div>
             </>
         );
