@@ -212,7 +212,7 @@ export default class incomes extends React.Component {
                     <MDBContainer>
                         <MDBRow>
                             <MDBCol md="2">
-                                <MDBBtn className='topBotomBordersOut' style={{ width: "150px" }} onClick={() => this.openModal()} type="button" >Add incomes</MDBBtn>
+                                <MDBBtn className='topBotomBordersOut' style={{ width: "150px" , background : 'transparent' , border : 'none' , color : "black" , "font-weight ": 'larger' }} onClick={() => this.openModal()} type="button" >Add incomes</MDBBtn>
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
@@ -244,7 +244,7 @@ export default class incomes extends React.Component {
                                                     <p><span>End Date:</span>  {itemI.end_date} </p>
                                                 </Col>
                                                 <Col className="col" sm={2}>
-                                                    <button type="submit">
+                                                    <button type="submit" style={{ "background": "transparent", "border": "none" , "outline" : 'none'}}>
                                                         <svg className="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
                                                             <path className="trash-lid" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
                                                             <path className="trash-can" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />

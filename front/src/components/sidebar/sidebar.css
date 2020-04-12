@@ -33,7 +33,7 @@
 
 #sidebar {
   position: fixed;
-  top: 0;
+  top:0px;
   left: 0;
 
   height: 100%;
@@ -42,7 +42,7 @@
   text-align: center;
   background: #343a40;
   background-size: 175%;
-  /* border-right: 1px solid white; */
+  border-right: 1px solid white;
   transition: all 0.3s ease-in;
 }
 

@@ -156,6 +156,23 @@ class Saving_goal extends React.Component {
 
         }
     }
+    del = async (e, id) => {
+        e.preventDefault()
+        try {
+            const response = await axios.delete(`http://localhost:8000/api/transactions/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('currUser')} `,
+                }
+            })
+            this.setState({
+                savings: this.state.savings.filter(item => item.id != id)
+            })
+
+        }
+        catch (err) {
+            return (err)
+        }
+    }
     render() {
         return (
             <>
@@ -230,7 +247,7 @@ class Saving_goal extends React.Component {
                     <MDBContainer>
                         <MDBRow>
                             <MDBCol md="2">
-                                <MDBBtn className='topBotomBordersOut' style={{ width: "150px" }} onClick={() => this.openModal()} type="button" >Saving goal</MDBBtn>
+                                <MDBBtn className='topBotomBordersOut' style={{ width: "150px" , background : 'transparent' , border : 'none' , color : "black" , "font-weight ": 'larger' }}onClick={() => this.openModal()} type="button" >Saving goal</MDBBtn>
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
@@ -248,19 +265,21 @@ class Saving_goal extends React.Component {
                                                             <p><span>Amount:</span> {item.amount} {item.categories_id == 1 ? "L.L" : "USD"}  </p>
                                                             <p><span>Date:</span> 25/2/2001 </p>
                                                         </Col>
-                                                        <Col className="col" sm={2}>
+                                                        {/* <Col className="col" sm={2}>
                                                             <svg class="icons" viewBox="0 0 24 24">
                                                                 <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
                                                                 <polygon class="trash-lid1" points="18.12 8.72 12.46 14.38 8.93 15.09 9.64 11.55 15.29 5.89 18.12 8.72" />
                                                                 <rect class="trash-lid1" x="16.12" y="3.89" width="4" height="4" transform="translate(1.14 14.54) rotate(-45)" />
                                                             </svg>
-                                                        </Col>
-                                                        <Col className="col" sm={2}>
-                                                            <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
-                                                                <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
-                                                                <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
-                                                            </svg>
-                                                        </Col>
+                                                        </Col> */}
+                                                        <button onClick={(e) => this.del(e, item.id)} style={{ "background": "transparent", "border": "none", "outline": 'none' }}>
+                                                            <Col className="col" sm={2}>
+                                                                <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+                                                                    <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
+                                                                    <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
+                                                                </svg>
+                                                            </Col>
+                                                        </button>
                                                     </Row>
                                                     <br></br>
                                                     <MDBProgress material value={50} animated >50%</MDBProgress>
