@@ -51,6 +51,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     // Transaction
     Route::get('/transactions', 'TransactionsController@index');
     Route::get('/transIncomes', 'TransactionsController@showTypeIncomes');
+Route::get('/transExpenses', 'TransactionsController@showTypeExpenses');
 
     Route::get('/transactions/{id}', 'TransactionsController@show');
     Route::post('/transactions', 'TransactionsController@store');
