@@ -1,9 +1,9 @@
- 
+
 import React from 'react';
 import './Saving_goal.css';
- import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBProgress} from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBProgress } from 'mdbreact';
 import { Form, Col, Container, Row } from 'react-bootstrap'
- import Modal from 'react-awesome-modal';
+import Modal from 'react-awesome-modal';
 import Side from '../../components/sidebar/sidebar'
 
 
@@ -11,10 +11,55 @@ class Saving_goal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            itemsAmount: '',
+            itemsexpenses: ''
+
         }
     }
+    async componentDidMount() {
+        try {
+            const token = localStorage.getItem('currUser');
+            //transactionsIncomes
+            const responset = await fetch('http://localhost:8000/api/transIncomes', {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultt = await responset.json();
 
+            var totalincomes = (resultt.data).reduce(function (tot, arr) {
+                return tot + arr.amount;
+            }, 0);
+
+            this.setState({
+
+                itemsAmount: totalincomes
+            });
+            console.log(this.state.itemsAmount)
+
+            //transactionseXPENSES
+            const responsett = await fetch('http://localhost:8000/api/transExpenses', {
+                headers: {
+                    Authorization: `Bearer ${token} `
+                }
+            });
+            const resultE = await responsett.json();
+            var totalexpenses = (resultE.data).reduce(function (tot, arr) {
+                return tot + arr.amount;
+            }, 0);
+
+            this.setState({
+                itemsexpenses: totalexpenses
+            });
+            console.log(this.state.itemsexpenses)
+            console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses) | 0 + 1))
+            console.log((10000 / (this.state.itemsAmount - this.state.itemsexpenses)/12).toFixed(1))
+        }
+        catch (err) {
+            return (err)
+        }
+    }
     openModal() {
         this.setState({
             visible: true
@@ -29,10 +74,10 @@ class Saving_goal extends React.Component {
 
     render() {
         return (
-           <>
-           <Side/>
+            <>
+                <Side />
                 <section >
-                     <Modal visible={this.state.visible} width="100%" height="100%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                    <Modal visible={this.state.visible} width="100%" height="100%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                         <div className="mod" >
                             <MDBContainer  >
                                 <MDBRow   >
@@ -91,7 +136,7 @@ class Saving_goal extends React.Component {
                                                 <MDBBtn style={{ marginLeft: "10px" }} className='topBotomBordersOut' href="javascript:void(0);" onClick={() => this.closeModal()} type="submit">Close</MDBBtn>
 
                                             </div>
-                                      </Form>
+                                        </Form>
 
                                     </MDBCol >
                                 </MDBRow>
@@ -103,7 +148,7 @@ class Saving_goal extends React.Component {
 
 
                     </Modal>
-                    
+
                 </section>
                 <div className="icom">
                     <MDBContainer>
@@ -116,130 +161,130 @@ class Saving_goal extends React.Component {
                         </MDBRow>
                     </MDBContainer>
 
-                 <MDBContainer>
-                    <MDBRow>
-                        <MDBCol md="10">
-                            <Container className="container article float-shadow">
-                                <Row >
-                                    <Col sm={8}>
+                    <MDBContainer>
+                        <MDBRow>
+                            <MDBCol md="10">
+                                <Container className="container article float-shadow">
+                                    <Row >
+                                        <Col sm={8}>
 
-                                        <p><span>Title:</span> cas</p>
-                                        <p><span>Amount:</span> 25$</p>
-                                        <p><span>Date:</span> 25/2/2001 </p>
-                                    </Col>
-                                     
-                                    <Col className="col" sm={2}>
-                                        <svg class="icons" viewBox="0 0 24 24">
+                                            <p><span>Title:</span> cas</p>
+                                            <p><span>Amount:</span> 25$</p>
+                                            <p><span>Date:</span> 25/2/2001 </p>
+                                        </Col>
 
-                                            <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
-                                            <polygon class="trash-lid1" points="18.12 8.72 12.46 14.38 8.93 15.09 9.64 11.55 15.29 5.89 18.12 8.72" />
-                                            <rect class="trash-lid1" x="16.12" y="3.89" width="4" height="4" transform="translate(1.14 14.54) rotate(-45)" />
-                                        </svg>
+                                        <Col className="col" sm={2}>
+                                            <svg class="icons" viewBox="0 0 24 24">
 
-                                    </Col>
+                                                <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
+                                                <polygon class="trash-lid1" points="18.12 8.72 12.46 14.38 8.93 15.09 9.64 11.55 15.29 5.89 18.12 8.72" />
+                                                <rect class="trash-lid1" x="16.12" y="3.89" width="4" height="4" transform="translate(1.14 14.54) rotate(-45)" />
+                                            </svg>
 
-                                    <Col className="col" sm={2}>
+                                        </Col>
 
-                                        <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
-                                            <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
-                                            <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
-                                        </svg>
+                                        <Col className="col" sm={2}>
 
-                                    </Col>
-                                   
-                                </Row>
-                                <br></br>
-                                <MDBProgress material value={50} animated >50%</MDBProgress>
-                            </Container>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
+                                            <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+                                                <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
+                                                <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
+                                            </svg>
 
-             <MDBContainer>
-                    <MDBRow>
-                        <MDBCol md="10">
-                            <Container className="container article float-shadow">
-                                <Row >
-                                    <Col sm={8}>
+                                        </Col>
 
-                                        <p><span>Title:</span> cas</p>
-                                        <p><span>Amount:</span> 25$</p>
-                                        <p><span>Date:</span> 25/2/2001 </p>
-                                    </Col>
-                                     
-                                    <Col className="col" sm={2}>
-                                        <svg class="icons" viewBox="0 0 24 24">
+                                    </Row>
+                                    <br></br>
+                                    <MDBProgress material value={50} animated >50%</MDBProgress>
+                                </Container>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBContainer>
 
-                                            <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
-                                            <polygon class="trash-lid1" points="18.12 8.72 12.46 14.38 8.93 15.09 9.64 11.55 15.29 5.89 18.12 8.72" />
-                                            <rect class="trash-lid1" x="16.12" y="3.89" width="4" height="4" transform="translate(1.14 14.54) rotate(-45)" />
-                                        </svg>
+                    <MDBContainer>
+                        <MDBRow>
+                            <MDBCol md="10">
+                                <Container className="container article float-shadow">
+                                    <Row >
+                                        <Col sm={8}>
 
-                                    </Col>
+                                            <p><span>Title:</span> cas</p>
+                                            <p><span>Amount:</span> 25$</p>
+                                            <p><span>Date:</span> 25/2/2001 </p>
+                                        </Col>
 
-                                    <Col className="col" sm={2}>
+                                        <Col className="col" sm={2}>
+                                            <svg class="icons" viewBox="0 0 24 24">
 
-                                        <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
-                                            <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
-                                            <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
-                                        </svg>
+                                                <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
+                                                <polygon class="trash-lid1" points="18.12 8.72 12.46 14.38 8.93 15.09 9.64 11.55 15.29 5.89 18.12 8.72" />
+                                                <rect class="trash-lid1" x="16.12" y="3.89" width="4" height="4" transform="translate(1.14 14.54) rotate(-45)" />
+                                            </svg>
 
-                                    </Col>
-                                   
-                                </Row>
-                                <br></br>
-                                <MDBProgress material value={50} animated >50%</MDBProgress>
-                            </Container>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
+                                        </Col>
 
- <MDBContainer>
-                    <MDBRow>
-                        <MDBCol md="10">
-                            <Container className="container article float-shadow">
-                                <Row >
-                                    <Col sm={8}>
+                                        <Col className="col" sm={2}>
 
-                                        <p><span>Title:</span> cas</p>
-                                        <p><span>Amount:</span> 25$</p>
-                                        <p><span>Date:</span> 25/2/2001 </p>
-                                    </Col>
-                                     
-                                    <Col className="col" sm={2}>
-                                        <svg class="icons" viewBox="0 0 24 24">
+                                            <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+                                                <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
+                                                <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
+                                            </svg>
 
-                                            <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
-                                            <polygon class="trash-lid1" points="18.12 8.72 12.46 14.38 8.93 15.09 9.64 11.55 15.29 5.89 18.12 8.72" />
-                                            <rect class="trash-lid1" x="16.12" y="3.89" width="4" height="4" transform="translate(1.14 14.54) rotate(-45)" />
-                                        </svg>
+                                        </Col>
 
-                                    </Col>
+                                    </Row>
+                                    <br></br>
+                                    <MDBProgress material value={50} animated >50%</MDBProgress>
+                                </Container>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBContainer>
 
-                                    <Col className="col" sm={2}>
+                    <MDBContainer>
+                        <MDBRow>
+                            <MDBCol md="10">
+                                <Container className="container article float-shadow">
+                                    <Row >
+                                        <Col sm={8}>
 
-                                        <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
-                                            <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
-                                            <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
-                                        </svg>
+                                            <p><span>Title:</span> cas</p>
+                                            <p><span>Amount:</span> 25$</p>
+                                            <p><span>Date:</span> 25/2/2001 </p>
+                                        </Col>
 
-                                    </Col>
-                                   
-                                </Row>
-                                <br></br>
-                                <MDBProgress material value={50} animated >50%</MDBProgress>
-                            </Container>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
+                                        <Col className="col" sm={2}>
+                                            <svg class="icons" viewBox="0 0 24 24">
 
+                                                <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
+                                                <polygon class="trash-lid1" points="18.12 8.72 12.46 14.38 8.93 15.09 9.64 11.55 15.29 5.89 18.12 8.72" />
+                                                <rect class="trash-lid1" x="16.12" y="3.89" width="4" height="4" transform="translate(1.14 14.54) rotate(-45)" />
+                                            </svg>
 
+                                        </Col>
+
+                                        <Col className="col" sm={2}>
+
+                                            <svg className="icon-trash1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+                                                <path className="trash-lid1" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
+                                                <path className="trash-can1" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
+                                            </svg>
+
+                                        </Col>
+
+                                    </Row>
+                                    <br></br>
+                                    <MDBProgress material value={50} animated >50%</MDBProgress>
+                                </Container>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBContainer>
 
 
 
 
 
-            </div>
+
+
+                </div>
             </>
         );
     }
