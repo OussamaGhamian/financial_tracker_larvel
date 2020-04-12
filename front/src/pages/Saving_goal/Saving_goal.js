@@ -143,6 +143,7 @@ class Saving_goal extends React.Component {
                         Authorization: `Bearer ${localStorage.getItem('currUser')} `,
                     }
                 })
+
             console.log(response)
             if (response.status == '200') {
                 alert('Saving has been created')
@@ -151,6 +152,15 @@ class Saving_goal extends React.Component {
             this.setState({
                 savings: [...this.state.savings, response.data.data]
             })
+
+            if (response.status == 200) {
+                alert("Savin Goal has been created");
+                console.log(response)
+                this.setState({transactions: [...this.state.transactions, response.data.data] })
+
+            }
+            else { alert("Savin Goal has not been created") };
+
         }
         catch (err) {
 
@@ -233,7 +243,7 @@ class Saving_goal extends React.Component {
                                             <Form.Group controlId="formGridPassword">
                                             </Form.Group>
                                             <div className="text-center">
-                                                <MDBBtn className='topBotomBordersOut' type="submit">Add incomes</MDBBtn>
+                                                <MDBBtn className='topBotomBordersOut' type="submit">Add Saving Goal</MDBBtn>
                                                 <MDBBtn style={{ marginLeft: "10px" }} className='topBotomBordersOut' href="javascript:void(0);" onClick={() => this.closeModal()} type="submit">Close</MDBBtn>
                                             </div>
                                         </Form>
@@ -262,8 +272,11 @@ class Saving_goal extends React.Component {
                                                     <Row >
                                                         <Col sm={8}>
                                                             <p><span>Title:</span> {item.title}</p>
-                                                            <p><span>Amount:</span> {item.amount} {item.categories_id == 1 ? "L.L" : "USD"}  </p>
+                                                            <p><span>Amount:</span> {item.amount} {item.categories_id == 1 ? "USD" : "L.L"}  </p>
                                                             <p><span>Date:</span> 25/2/2001 </p>
+                                                            <p><span>you need:</span> {(`${item.amount}` / (this.state.itemsAmount - this.state.itemsexpenses) | 0 + 1)} Month </p>
+
+                                                            <p><span>you need:</span> {(`${item.amount}` / (this.state.itemsAmount - this.state.itemsexpenses) / 12).toFixed(1)} Year </p>
                                                         </Col>
                                                         {/* <Col className="col" sm={2}>
                                                             <svg class="icons" viewBox="0 0 24 24">
