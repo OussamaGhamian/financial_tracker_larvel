@@ -55,6 +55,18 @@ class TransactionsController extends Controller
 
     }
 
+      public function showTypeExpenses()
+    {
+         $user = auth()->user()->id;
+        $trans = Transaction::query()->where('type', 'LIKE', 'expenses')->Where('user_id', '=', $user)->get();
+        if (isset($trans)) {
+            return sendResponse(true, 200, $trans, );
+        }
+
+        return sendResponse(false, 401, null, ["No transaction with ID : }"]);
+
+    }
+
     public function update(Request $request, $id)
     {
         $data = $request->all();

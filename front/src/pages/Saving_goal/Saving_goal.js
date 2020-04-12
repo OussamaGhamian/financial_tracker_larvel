@@ -116,8 +116,6 @@ class Saving_goal extends React.Component {
                         </MDBRow>
                     </MDBContainer>
 
-
- 
                  <MDBContainer>
                     <MDBRow>
                         <MDBCol md="10">
