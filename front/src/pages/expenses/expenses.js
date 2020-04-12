@@ -80,7 +80,7 @@ export default class expenses extends React.Component {
             start_date: this.state.startDatee,
             end_date: this.state.endDatee,
             user_id: userDa,
-            intervalo: "fixxed",
+            intervalo: (this.state.startDatee == this.state.endDatee) ? 'fixed' : 'recurrence',
             type: "expenses",
             currencies_id: this.state.currencies_idd
         }, {
