@@ -12,10 +12,23 @@ class sidebar extends React.Component {
             redirectToReferrer: false,
             users: [],
              user: [],
-            token:''
+            token:'',
+            covid: ''
         }
     }
     async componentDidMount() {
+        
+        const responseC = await fetch('https://api.covid19api.com/total/country/lebanon/status/confirmed');
+        const resultC = await responseC.json();
+        this.setState({
+            covid: resultC[(resultC).length - 1]
+        });
+
+        console.log(this.state.covid.Cases)
+
+
+
+
         this.setState({ user: (localStorage.getItem('userData')).split(','),
            token: localStorage.getItem('currUser')
      })
@@ -55,11 +68,20 @@ class sidebar extends React.Component {
                             <Link to="/saving_goal" className='sss' >   <li ><a  > Saving goal</a></li></Link>
                             <Link to="/reports" className='sss' >   <li ><a  > Reports</a></li></Link>
                         </ul>
+                      
+
                         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="facebook" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(46,74,212,1)" iconSize="5" roundness="50%" url="https://some-website.com/my-social-media-url" size="50" />
                         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="twitter" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(28,186,223,1)" iconSize="5" roundness="50%" url="https://some-website.com/my-social-media-url" size="50" />
                         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="phone" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(50,183,76,1)" iconSize="5" roundness="50%" url="https://some-website.com/my-social-media-url" size="50" />
                         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="youtube" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(249,2,2,1)" iconSize="5" roundness="50%" url="https://some-website.com/my-social-media-url" size="50" />
+                        <div   >
+                            <p className="Co"  >Covid19-Lebanon</p>
+                            <p className="Co"  > Cases: {this.state.covid.Cases}</p>
+                            <p className="Co"  > Last-Update {this.state.covid.Date}</p>
+                        </div>
                     </nav>
+                   
+
                 </div>
             </>
         );

@@ -11,7 +11,7 @@ class Saving_goal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false,
+             visible: false,
             currencies: [],
             categories: [],
             transactions: [],
@@ -26,7 +26,8 @@ class Saving_goal extends React.Component {
             currencies_id: '',
             savings: [],
             itemsAmount: '',
-            itemsexpenses: ''
+            itemsexpenses: '',
+            rand:''
 
         }
     }
@@ -276,8 +277,7 @@ class Saving_goal extends React.Component {
                                                             <p><span>Date:</span> 25/2/2001 </p>
                                                             <p><span>you need:</span> {(`${item.amount}` / (this.state.itemsAmount - this.state.itemsexpenses) | 0 + 1)} Month </p>
 
-                                                            <p><span>you need:</span> {(`${item.amount}` / (this.state.itemsAmount - this.state.itemsexpenses) / 12).toFixed(1)} Year </p>
-                                                        </Col>
+                                                         </Col>
                                                         {/* <Col className="col" sm={2}>
                                                             <svg class="icons" viewBox="0 0 24 24">
                                                                 <path class="cls-1" d="M19,14.94v4a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2v-12a2,2,0,0,1,2-2H9" />
@@ -295,7 +295,7 @@ class Saving_goal extends React.Component {
                                                         </button>
                                                     </Row>
                                                     <br></br>
-                                                    <MDBProgress material value={50} animated >50%</MDBProgress>
+                                                    <MDBProgress material value={Math.floor((Math.random() * 100) + 1)} animated > </MDBProgress>
                                                 </Container>
                                             </MDBCol>
                                         </MDBRow>

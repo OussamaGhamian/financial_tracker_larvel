@@ -9,7 +9,11 @@
 *::after {
   box-sizing: border-box;
 }
-
+.Co{
+  color: aliceblue;
+   
+ margin: 10px;
+}
 .bod {
   /* height: auto; */
   width: 100%;
